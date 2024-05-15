@@ -1,0 +1,63 @@
+{
+  "updateFrequency": 1,
+  "sensors": [
+    {
+      "sensor": "10-000802b4ba0e",
+      "name": "Innomhus"
+    },
+    {
+      "sensor": "20-000802b4ca2e",
+      "name": "Ute"
+    }
+  ],
+  "outputs": [
+    {
+      "bcm": 17,
+      "name": "Fläckt"
+    }
+  ],
+  "jobs": [
+    {
+      "name": "Starta Fläckten",
+      "output": 17,
+      "conditions": [
+        {
+          "type": "sensor",
+          "value": "10-000802b4ba0e"
+        },
+        {
+          "type": "operation",
+          "value": "+"
+        },
+        {
+          "type": "constant",
+          "value": 4
+        },
+        {
+          "type": "operation",
+          "value": ">"
+        },
+        {
+          "type": "sensor",
+          "value": "20-000802b4ca2e"
+        },
+        {
+          "type": "operation",
+          "value": "&&"
+        },
+        {
+          "type": "sensor",
+          "value": "10-000802b4ba0e"
+        },
+        {
+          "type": "operation",
+          "value": ">"
+        },
+        {
+          "type": "constant",
+          "value": 18
+        }
+      ]
+    }
+  ]
+}

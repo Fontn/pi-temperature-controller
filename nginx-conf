@@ -1,0 +1,38 @@
+worker_rlimit_nofile 8192;
+events {
+  worker_connections  4096;  ## Default: 1024
+}
+http {
+  include    mime.types;
+  sendfile     on;
+
+  server {
+    root /var/www/html;
+
+    listen 80 default_server;
+    listen [::]:80 default_server;
+
+    server_name localhost;
+
+    location / {
+      try_files $uri $uri/ /index.html;
+    }
+
+    location /api/ {
+      rewrite ^/api^/ /$1 break;
+      proxy_pass http://localhost:3000/;
+    }
+    location ~ \.css {
+      add_header  Content-Type    text/css;
+    }
+    location ~ \.ttf {
+      add_header  Content-Type    application/x-font-ttf;
+    }
+    location ~ \.js {
+      add_header  Content-Type    application/x-javascript;
+    }
+    location ~ \.ico {
+      add_header  Content-Type    image/x-icon;
+    }
+  }
+}
